@@ -1,0 +1,46 @@
+{% extends 'cadastros/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block teste %}
+{% endblock %}
+
+{% block content %}
+  
+<div>
+    <table style="border: 1px solid black;border-radius: 10px;" >
+        <thead>
+            <tr>
+                <th>PO Number</th>
+                <th>Order Number</th>
+                <th>Side Mark</th>
+                <th>Carrier</th>
+                <th>Roll Number</th>
+                <th>Width</th>
+                <th>Length</th>
+                <th>Quantity</th>
+                <th>Material Type</th>
+                <th>Store</th>     
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+          <td>{{ book.PO_number }}</td>
+          <td>{{ book.Order_number }}</td>
+          <td>{{ book.Side_Mark }}</td>
+          <td>{{ book.carrier }}</td>
+          <td>{{ book.Roll_number }}</td>
+          <td>{{ book.width }}</td>
+          <td>{{ book.length }}</td>
+          <td>{{ book.Quantity }}</td>
+          <td>{{ book.material_type }}</td>
+          <td>{{ book.store }}</td>
+          </tr>
+      
+        </tbody>
+
+        </table>
+</div>
+
+
+{% endblock %}
+

@@ -1,0 +1,68 @@
+{% extends 'cadastros/base.html' %}
+
+<!-- # to don't copy the header -->
+<!-- {% block head 
+
+{% endblock  -->
+
+  {% block teste %}
+{% endblock %}
+
+{% block content %}
+  
+<div hx-target="this" hx-swap="outerHTML">
+  
+   <form method="POST">
+      {% csrf_token %}
+ <table style="border: 1px solid black;border-radius: 10px">
+  <thead>
+      <tr>
+          <th>PO Number</th>
+          <th>Order Number</th>
+          <th>Side Mark</th>
+          <th>Carrier</th>
+          <th>Roll Number</th>
+      </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <td>{{ form.PO_number }}</td>
+    <td>{{ form.Order_number }}</td>
+    <td>{{ form.Side_Mark }}</td>
+    <td>{{ form.carrier }}</td>
+    <td>{{ form.Roll_number }}</td>
+    </tr>
+
+  </tbody>
+
+    <thead>
+        <tr>
+          <th>Width</th>
+          <th>Length</th>
+          <th>Quantity</th>
+          <th>Material Type</th>
+          <th>Store</th>                     
+        </tr>
+    </thead>
+    <tbody>
+      <tr>
+      <td>{{ form.width }}</td>
+      <td>{{ form.length }}</td>
+      <td>{{ form.Quantity }}</td>
+      <td>{{ form.material_type }}</td>
+      <td>{{ form.store }}</td>
+      </tr>
+    </tbody>
+    </table>
+
+<button type="submit" hx-post=".">Submit</button>
+</form>
+
+</div>
+
+<!-- <div id="bookforms"></div> -->
+
+
+
+{% endblock %}
+

@@ -1,0 +1,33 @@
+{% extends 'paginas/index.html' %}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+    <!-- Website Title -->
+    {% block titulo %}
+    <title>Delete</title>
+    {% endblock %}     
+
+    {% block body %}
+    <!-- body central -->
+    <div class="form">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-container">
+                        <div class="above-heading">Delete</div>        
+                        <form action="" method="post">
+                            <p>Are you sure you want to permanently delete: {{ object }}</p>
+                            <button type="submit" class="btn btn-danger"> Delete </button>
+                        </form>                             
+                        
+                    </div> <!-- end of text-container -->
+                </div> <!-- end of col -->
+            </div> <!-- end of row -->
+            <div class="row"><!-- end of col -->
+            </div> <!-- end of row -->
+        </div> <!-- end of container -->
+    </div> <!-- end of form -->
+    <!-- body central -->
+    {% endblock %}

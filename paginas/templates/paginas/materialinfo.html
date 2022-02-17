@@ -1,0 +1,106 @@
+{% extends 'paginas/index.html' %}
+
+{% block titulo %}
+<title> Material Information </title>
+{% endblock %}
+
+{% block body %}
+    <!-- body central -->
+    <div class="form">
+      <div class="container">
+          <div class="row">
+              <div class="col-lg-12">
+                  <div class="text-container">
+                      <div class="above-heading">Material Information</div>   
+                           
+                      {% block boxebody %}
+                      <body>
+                        <label for="textfield">&nbsp;</label>
+
+                        <!-- FORMULARIO INICIO -->
+                        <form action="" id="form2" name="form2" method="post">
+                          
+                        <p>
+                            <label for="textfield23"><strong> <h3>Material Information</strong><br>
+                              <br>
+                        </label>
+                          <p>
+                            PO
+                            <label for="number">Number:</label>
+                          <label for="textfield23"> 
+                              <input name="number" type="number" id="number">
+                          </p>
+                          </label>
+                          <p>
+                            Order 
+                            <label for="number2">Number:</label>
+                            <input type="number" name="number2" id="number2">
+                        </p>
+                          <p>
+                            <label for="textfield11">Bill of Lading:</label>
+                            <input type="text" name="textfield3" id="textfield11">
+                          </p>
+                          <p> Receiving Date
+                            <label for="textfield12">:</label>
+                            <input type="text" name="textfield4" id="textfield12">
+                          </p>
+                          <p>Due Date
+                            <label for="textfield13">:</label>
+                            <input type="text" name="textfield5" id="textfield13">
+                          </p>
+                          <p>Sidemark
+                            <label for="textfield14">:</label>
+                            <input type="text" name="textfield6" id="textfield14">
+                          </p>
+                          <p> Quantity
+                            <label for="textfield15">:</label>
+                            <input type="text" name="textfield7" id="textfield15">
+                          </p>
+                          <p> Width
+                            <label for="textfield16">:</label>
+                            <input type="text" name="textfield" id="textfield16">
+                          </p>
+                          <p> Length
+                            <label for="textfield17">:</label>
+                            <input type="text" name="textfield9" id="textfield17">
+                          </p>
+                          <p> Material
+                            <label for="textfield18">:</label>
+                            <input type="text" name="textfield10" id="textfield18">
+                          </p>
+                          <p> Dye Lot
+                            <label for="textfield19">:</label>
+                            <input type="text" name="textfield11" id="textfield19">
+                          </p>
+                          <p> Roll Number
+                            <label for="textfield20">:</label>
+                            <input type="text" name="textfield12" id="textfield20">
+                          </p>
+                          <p> Take Out Date
+                            <label for="textfield21">:</label>
+                            <input type="text" name="textfield13" id="textfield21">
+                          </p>
+                          <p>Take Out Name
+                            <label for="textfield21">:</label>
+                            <input type="text" name="textfield8" id="textfield21">
+                          </p>
+                          <p>
+                            <input type="submit" name="submit" id="submit" value="Submit">
+                          </p>
+                          <p>&nbsp;</p>
+                        </form>
+                        <p>&nbsp;</p>
+                        </body>
+                      {% endblock %}
+
+                  </div> <!-- end of text-container -->
+              </div> <!-- end of col -->
+          </div> <!-- end of row -->
+          <div class="row"><!-- end of col -->
+          </div> <!-- end of row -->
+      </div> <!-- end of container -->
+  </div> <!-- end of form -->
+  <!-- body central -->
+{% endblock %}
+
+

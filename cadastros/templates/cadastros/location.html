@@ -1,0 +1,278 @@
+{% extends 'paginas/index.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+    <!-- Website Title -->
+    {% block titulo %}
+    <title>Material Entry </title>
+    <script src="https://unpkg.com/htmx.org@1.5.0"
+    integrity="sha384-oGA+prIp5Vchu6we2YkI51UtVzN9Jpx2Z7PnR1I78PnZlN8LkrCT4lqqqmDkyrvI"
+    crossorigin="anonymous"></script>
+    {% endblock %}     
+    
+
+    {% block body %} 
+ 
+
+
+   <div class="form">
+        <!-- <div class="container"> -->
+            <div class="row">
+                <div class="col-lg-12">
+                        <div class="above-heading" style="font-size: large;">Register Material </div>   
+                        <script type="text/javascript" scr="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+                        <!-- htmx inicio -->
+                        <script src="https://unpkg.com/htmx.org@1.1.0"></script>
+                        <script>
+                          document.body.addEventListener('htmx:configRequest', (event) => {
+                            event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+                          })
+                        </script>
+                        <!-- fim -->
+
+
+    <!-- inicio formset -->            
+    <div hx-target="this" hx-swap="outerHTML">
+        <form action="" method="POST" id="post-form">
+            <div class="renderPDF" id="renderPDF">
+            <div id="div1" style="color: rgb(12, 2, 12);">
+                {% csrf_token %}
+                {{ forms_shelf|crispy }}
+       
+            </div>
+                <hr size=20 color="black" >
+                <h3> Roll Number </h3>
+                {{ formset_shelf.roll_number_shelf }}
+
+<!-- --------------------------------------------------------------- -->
+
+<!---------------------- Modal ------------------->
+
+<script>
+    $(document).ready(function(){
+        $("#tags").dataTable();
+    });
+
+
+function printDiv(renderPDF) {
+var printContents = document.getElementById(renderPDF).innerHTML;
+var originalContents = document.body.innerHTML;
+
+document.body.innerHTML = printContents;
+
+window.print();
+document.body.innerHTML = originalContents;
+}
+</script>
+
+<!-- -------------- final table bill ------------- -->
+
+          <!-- {{ formset_shelf.management_form -->
+            {{ formset_shelf.management_form}}
+          <div id="order" >
+              
+          </div>
+    
+</div>
+        <button data-toggle="button" id="add-item"> Add Item</button> <br><br>
+        <button class="btn btn-primary pull-right" value="Save" onload=""> Register</button> 
+        <input type="button" class="btn btn-success" value="Print" onClick="print()"/> 
+
+
+        <!-- __________________________________ -->
+<style>
+    @media print {
+  .noPrint{
+    display:none;
+  }
+  .footer{
+    display:none;
+  }
+  .footer-frame{
+    display:none;
+  }
+  .table-bill{
+    display:none;
+  }
+  .header-frame{
+    display:none;
+  }
+
+}
+.renderPDF{
+  color:rgb(12, 2, 12);
+}
+</style>
+<br>
+
+
+        </div>
+    
+</div>
+    </div>
+
+      </div>
+    </div>
+  </div>
+        <!-- --------------------------------------------------------------- -->
+
+      
+
+    </form>
+
+<!-- ------------- table materiaç -tabela materiais----------------- -->
+
+
+                </div> <!-- end of col -->
+            </div> <!-- end of row -->
+            <div class="row"><!-- end of col -->
+            </div> <!-- end of row -->
+        </div> <!-- end of container -->
+    </div> <!-- end of form -->
+    <!-- body central -->
+    {% endblock %}
+
+    
+    {% block scripts %}
+    <script src="{% static 'js/jquery.mask.min.js' %}"></script>
+
+    
+<!-- ----------------soma campos----------- --------------- -->
+    <script>
+        jQuery(document).ready(function(){
+    jQuery('input').on('keyup',function(){
+    if(jQuery(this).attr('name') === 'result'){
+    return false;
+    }
+
+    var soma1 = (jQuery('#id_material_type_set-0-length').val() == '' ? 0 : jQuery('#id_material_type_set-0-length').val());
+    var soma2 = (jQuery('#id_material_type_set-0-width').val() == '' ? 0 : jQuery('#id_material_type_set-0-width').val());
+    var result = (parseInt(soma1) * parseInt(soma2));
+    jQuery('#id_material_type_set-0-Quantity').val(result);
+    });
+    });
+    </script>
+<!-- ----------------formulario dinamico--------------- -->
+    <script>
+        $(document).ready(function(){
+            $("#add-item").click(function(ev) {
+                ev.preventDefault();
+                var count = $('#order').children().length;
+                var tmplMarkup = $("#item-order").html();
+                var compiledTmpl = tmplMarkup.replace(/__prefix__/g, count);
+                $("div#order").append(compiledTmpl);
+
+                // update form count
+                $('#id_product-TOTAL_FORMS').attr('value', count + 1);
+
+                // some animate to scroll to view our new form
+                $('html, body').animate({
+                    scrollTop: $("#add-item").position().top-200
+                }, 800);      
+            });
+            function adicionarItemTable() {    
+                var RollNumber = $('#id_product-0-Roll_number').val();
+
+                var linha = "" +
+                    "<tr>" +
+                    "<td>"+RollNumber+"</td>"+
+                    "  <td><a href='#' class='btn btn-danger btn-remove btn-xs'>Remove</a></td>"+
+                    "</tr>";
+                $('.tbody').append( linha );
+                $('#id_product-0-Roll_number').val('');
+            }
+// ------------------final function principal------------------
+
+          $(".tbody").on("click", "remove-list", function(e){
+              $(this).closest('tr').remove();
+          });
+        });
+
+        
+    </script>
+
+    <script type="text/html" id="item-order">
+        <div id="item-__prefix__" style="margin-top: 10px">
+
+                <!-- {{ formset.empty_form -->
+             
+                      {{ formset_shelf.empty_form.roll_number_shelf}}
+                      
+ 
+      
+        </div>
+
+        
+    </script>
+
+<!-- -------------- salva variaveis ------------ -->
+<!-- ------------- pop up material ---------------->
+<script>
+    $(document).ready(function(){
+        $("#reg-mat").click(function(){
+            $("#div1").dialog();
+        })
+        
+    });
+</script>
+<!------------------- iteracao loop tabela forms ------------------->
+{% for x in formset %}
+<script>
+    $(document).ready(function() {
+        $('item-{{ forloop.counter0 }}').keyup(function() {
+         $('#tag5').html('<b>' + $(this).val() + '</b>');
+        });
+    }); 
+</script>
+{% endfor %}
+
+<script>   
+
+
+// ---------------------- p forms ------------------------------
+
+$("#modalcls").click(function(){
+        adicionarItemTable();
+    });
+
+    $("#modalcls").click(function(e){
+        e.preventDefault();
+        alert("success");       
+
+    });
+    
+// ---------- original function---------------
+function adicionarItemTable() {
+
+    var RollNumber = $('#id_product-0-Roll_number').val();
+
+
+    var linha = "" +
+        "<tr>" +
+           "<td>"+RollNumber+"</td>"+
+
+           "  <td><a href='#' class='btn btn-danger btn-remove btn-xs'>Remove</a></td>"+
+        "</tr>";
+    $('.tbody').append( linha );
+    $('#id_product-0-Roll_number').val('');
+}
+// ------------------final function principal------------------
+
+          $(".tbody").on("click", "remove-list", function(e){
+              $(this).closest('tr').remove();
+          });
+              
+</script>
+
+
+<script>
+    $("#opt").click(function(e){
+        e.preventDefault();       
+        alert("success"); 
+    });
+    
+</script>
+
+    {% endblock %}
+
+ 

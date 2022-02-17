@@ -1,0 +1,179 @@
+{% extends 'paginas/index.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+    {% block titulo %}
+    <title>tags</title>
+    {% endblock %}     
+<span class="border border-primary"></span>
+    {% block body %}
+    <div class="form">
+        <div class="container" >
+            <div class="above-heading">TAGS</div> 
+
+            <div class="col-md-12 " style="border:solid 1px rgb(14, 12, 12);">
+                <!-- <label for="material">Material Type </label>
+                { render_field form.material title="MaterialType" class="form-control" %}
+                <select for="material">
+                    <option>Choose...</option>
+
+                    {% for g in object_list%}
+                    <option value="{{material_type}}"> {{ g.material_type.material_type }} </option>
+                    {% endfor %}
+                    </select> -->
+
+                        <form class="form-inline">       
+                            <label>Start Date</label>
+                            <input class="form-control" name="start_date" type="date"/>
+                            <label>End Date</label>
+                            <input class="form-control" name="end_date" type="date"/>
+
+                            <select class="form-select" for="carrier" name="carrier" >
+                                <option>SELECT...</option>
+
+                                <option>A.P.T. Distributing</option>
+                                <option>Accurate Transport</option>
+                                <option>AllState</option>
+                                <option>APT</option>
+                                <option>Belknap</option>
+                                <option>Calhoun Distributio</option>
+                                <option>Carpenter</option>
+                                <option>Classic Tile</option>
+                                <option>Couristan Carpets</option>
+                                <option>Dalyn</option>
+                                <option>Dedicated LLC</option>
+                                <option>Dixie</option>
+                                <option>Elias Wilf</option>
+                                <option>Engineered</option>
+                                <option>Fabrica</option>
+                                <option>Fishman</option>
+                                <option>JJ Haines</option>
+                                <option>Kane</option>
+                                <option>knae</option>
+                                <option>Mannington</option>
+                                <option>Masland</option>
+                                <option>Mohawk</option>
+                                <option>Nourtex/Nourison RU</option>
+                                <option>PCC Ringgold</option>
+                                <option>Phenix</option>
+                                <option>Shaw</option>
+                                <option>Southwind</option>
+                                <option>Stanton</option>
+                                <option>Stark</option>
+                                <option>UPS</option>
+                                <option>Urato</option>
+
+                            </select> 
+
+
+                            <button class="btn btn-primary" type="submit"> Search </button>
+                        </form>
+            </div>
+                        <button type="button" class="btn btn-success" onclick="printDiv('renderPDF')" id="pdf">generate pdf</button>
+                        
+       <!-- <link rel="stylesheet" href=""> -->
+       
+       <div class="renderPDF" id="renderPDF">
+ <!-- border="1px"  -->
+                        <table class="table"   id="tags"> 
+                                {% for x in object_list %}
+                                
+                                        <tr>
+                                    <td colspan="2" height="150px">Roll Number:<h2 id="roll"><br>{{ x.Roll_number }}</h2> </td>
+                                        </tr>
+                                        <tr>
+                                    <td height="250px">
+                                    <h4 id="side"><br>Side Mark:{{x.Side_Mark}}</h4>
+
+                                    <h4 id="info">
+                                    <!-- Bill of Lading: {{x.bill_of_land}} <br> -->
+                                    Carrier: {{x.carrier}} <br>
+                                    Size: {{x.width}} x {{x.length}} <br>
+                                    Order Number:{{x.Order_number}} <br>
+                                    Store: {{ x.store }}
+                                    </h4>
+                                    
+                                    </td>  
+                                    <td>
+                                        <p>
+                                            PO Number:{{ x.PO_number }}
+                                        </p>
+                                        <p>
+                                            Material Type: {{ x.material_type }}
+                                        </p>
+                                        <p>                                        
+                                            Rcvd.Date:{{ x.bill_of_land.date }}
+                                        </p>   
+                                    </td>
+                                </tr>
+                                <tr>
+                                        <td colspan="2" height="250px">
+                                    <div class="alinhar">
+                                    <img src="{{ MEDIA_URL }}{{ x.barcode.url }}" height="150" width="350" class="center"> <br><br><br>
+                                    </div>
+                                </td>
+                                </tr>
+                                <tr></tr><tr></tr><tr></tr>
+                                       
+                                {% endfor %}
+
+                        </table>     
+                        <style>
+                            #roll{
+                                text-align:center;
+                                font-size: 74px;               
+                            }
+
+                            #side{
+                                font-size: 32px;
+                            }
+
+                            #info{
+                                font-size: 25px;
+                                font-weight: lighter;
+                            }
+                        </style>
+                
+                                    <style>
+                                        .alinhar{
+                                            text-align: center;
+                                            }
+                                        .renderPDF{
+                                            overflow: auto;
+                                            height: 600px;
+                                        }          
+                                   </style>
+        </div>    
+
+       
+                        
+        </div> <!-- end of container -->
+    </div> <!-- end of form -->
+    <!-- body central -->
+    
+    {% endblock %}
+
+    {% block scripts %}
+        <script>
+            $(document).ready(function(){
+                $("#tags").dataTable();
+            });
+
+
+function printDiv(renderPDF) {
+     var printContents = document.getElementById(renderPDF).innerHTML;
+     var originalContents = document.body.innerHTML;
+
+     document.body.innerHTML = printContents;
+
+     window.print();
+
+     document.body.innerHTML = originalContents;
+}
+
+
+
+        </script>
+
+   {% endblock %}

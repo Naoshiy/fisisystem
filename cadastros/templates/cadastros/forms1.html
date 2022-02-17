@@ -1,0 +1,579 @@
+{% extends 'paginas/index.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+    <!-- Website Title -->
+    {% block titulo %}
+    <title>Material Entry </title>
+    <script src="https://unpkg.com/htmx.org@1.5.0"
+    integrity="sha384-oGA+prIp5Vchu6we2YkI51UtVzN9Jpx2Z7PnR1I78PnZlN8LkrCT4lqqqmDkyrvI"
+    crossorigin="anonymous"></script>
+    {% endblock %}     
+    
+
+    {% block body %} 
+ 
+
+
+   <div class="form">
+        <!-- <div class="container"> -->
+            <div class="row">
+                <div class="col-lg-12">
+                        <div class="above-heading" style="font-size: large;">Register Material </div>   
+
+                        <script type="text/javascript" scr="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+                        <!-- htmx inicio -->
+                        <script src="https://unpkg.com/htmx.org@1.1.0"></script>
+                        <script>
+                          document.body.addEventListener('htmx:configRequest', (event) => {
+                            event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+                          })
+                        </script>
+                        <!-- fim -->
+
+
+    <!-- inicio formset -->            
+    <div hx-target="this" hx-swap="outerHTML">
+        <form action="" method="POST" id="post-form">
+            <div class="renderPDF" id="renderPDF">
+            <div id="div1" style="color: rgb(12, 2, 12);">
+                {% csrf_token %}
+                {{ forms|crispy }}
+       
+                <!-- <button type="submit"  id="opt">enviar </button> -->
+            </div>           
+            <br>
+            <br>
+
+                <hr size=20 color="black" >
+<!-- --------------------------------------------------------------- -->
+
+<!---------------------- Modal ------------------->
+
+<script>
+    $(document).ready(function(){
+        $("#tags").dataTable();
+    });
+
+
+function printDiv(renderPDF) {
+var printContents = document.getElementById(renderPDF).innerHTML;
+var originalContents = document.body.innerHTML;
+
+document.body.innerHTML = printContents;
+
+window.print();
+// w = window.open("", "_blank", "k") ;//.focus();
+//         w.document.write(printContents);
+//         w.print();
+//         // document.body.innerHTML = oldstr;
+
+document.body.innerHTML = originalContents;
+// --
+// var printContents = document.getElementById(renderPDF).innerHTML;
+//      var originalContents = document.body.innerHTML;
+
+//      document.body.innerHTML = printContents;
+
+//      window.print();
+
+//      document.body.innerHTML = originalContents;
+
+}
+
+
+
+</script>
+
+<!-- -------------- final table bill ------------- -->
+
+          {{ formset.management_form}}
+          <div id="order" >
+              
+          </div>
+
+       
+    
+</div>
+        <button data-toggle="button" id="add-item"> Add Item</button> <br><br>
+        <button class="btn btn-primary pull-right" value="Save" onload=""> Register</button> 
+        <input type="button" class="btn btn-success" value="Print" onClick="print()"/> 
+
+ {{counter}}
+        <!-- __________________________________ -->
+<style>
+    @media print {
+  .noPrint{
+    display:none;
+  }
+  .footer{
+    display:none;
+  }
+  .footer-frame{
+    display:none;
+  }
+  .table-bill{
+    display:none;
+  }
+  .header-frame{
+    display:none;
+  }
+
+
+
+}
+.renderPDF{
+  color:rgb(12, 2, 12);
+}
+</style>
+<br>
+
+
+
+        </div>
+    
+</div>
+    </div>
+
+      </div>
+    </div>
+  </div>
+        <!-- --------------------------------------------------------------- -->
+
+      
+
+    </form>
+
+<!-- ------------- table materiaç -tabela materiais----------------- -->
+<!-- <table class="order-list">
+    <thead>
+        <tr><td>Price</td><td>Qty</td><td>Total</td></tr>
+    </thead>
+    
+    <tbody>
+        <tr>
+            <td>$<input type="text" id="price" /></td>
+            <td><input type="text" id="qty" /></td>
+            <td>$<input type="text" id="linetotal" readonly="readonly" /></td>
+        </tr>
+    </tbody>
+
+</table> -->
+                </div> <!-- end of col -->
+            </div> <!-- end of row -->
+            <div class="row"><!-- end of col -->
+            </div> <!-- end of row -->
+        </div> <!-- end of container -->
+    </div> <!-- end of form -->
+    <!-- body central -->
+    {% endblock %}
+
+    
+    {% block scripts %}
+    <script src="{% static 'js/jquery.mask.min.js' %}"></script>
+
+    <script>
+        $(document).ready(function(){
+            $("#id_main-date").mask("00/00/0000"); 
+        });
+    </script>
+    
+<!-- ----------------soma campos----------- --------------- -->
+
+    <!-- <script>
+        jQuery(document).ready(function(){
+            jQuery('input').on('keyup',function(){    if(jQuery(this).attr('name') === 'result'){
+    return false;
+    }
+
+    var soma1 = (jQuery('#id_material_type_set-0-length').val() == '' ? 0 : jQuery('#id_material_type_set-0-length').val());
+    var soma2 = (jQuery('#id_material_type_set-0-width').val() == '' ? 0 : jQuery('#id_material_type_set-0-width').val());
+    var result = (parseInt(soma1) * parseInt(soma2));
+    jQuery('#id_material_type_set-0-Quantity').val(result);
+    });
+    });
+      
+  
+    </script> -->
+
+<!-- ----------------formulario dinamico--------------- -->
+    <script>
+        $(document).ready(function(){
+            var counter = -1;  // iterar esse
+            $("#add-item").click(function(ev) {
+                counter++;
+                ev.preventDefault();
+                var count = $('#order').children().length;
+                var tmplMarkup = $("#item-order").html();
+                var compiledTmpl = tmplMarkup.replace(/__prefix__/g, count);
+                $("div#order").append(compiledTmpl);
+
+                
+                // update form count
+                $('#id_product-TOTAL_FORMS').attr('value', count + 1);
+
+                // some animate to scroll to view our new form
+                $('html, body').animate({
+                    scrollTop: $("#add-item").position().top-200
+                }, 800);      
+
+        // ----------------- area -----------------------------
+        
+            $("#order").on("change", '#id_product-'+counter+'-width, #id_product-'+counter+'-length', function (event) {
+                calculateRow($(this).closest("tr"));
+            });
+            
+            
+            
+                function calculateRow(row){
+                    var price = +row.find('#id_product-'+counter+'-width').val();
+                    var qty = +row.find('#id_product-'+counter+'-length').val();
+                    row.find('#id_product-'+counter+'-Quantity').val((price * qty).toFixed(2));
+                    }
+            });
+
+        
+        });
+
+
+    </script>
+
+    <script type="text/html" id="item-order">
+        <div id="item-__prefix__" style="margin-top: 10px">
+
+
+            
+                <!-- {{ formset.empty_form -->
+                <table style="border: 1px solid black;border-radius: 10px">
+                    <thead>
+                        <tr>
+                            <th>PO Number</th>
+                            <th>Order Number</th>
+                            <th>Side Mark</th>
+                            <th>Carrier</th>
+                            <th>Roll Number</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                      <td>{{ formset.empty_form.PO_number }}</td>
+                      <td>{{ formset.empty_form.Order_number }}</td>
+                      <td>{{ formset.empty_form.Side_Mark }}</td>
+                      <td>{{ formset.empty_form.carrier }}</td>
+                      <td>{{ formset.empty_form.Roll_number }}</td>
+                      </tr>
+                  
+                    </tbody>
+                  
+                      <thead>
+                          <tr>
+                            <th>Width</th>
+                            <th>Length</th>
+                            <th>Quantity</th>
+                            <th>Material Type</th>
+                            <th>Store</th>                     
+                          </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                        <td>{{ formset.empty_form.width }}</td>
+                        <td>{{ formset.empty_form.length }}</td>
+                        <td>{{ formset.empty_form.Quantity }}</td>
+                        <td>{{ formset.empty_form.material_type }}</td>
+                        <td>{{ formset.empty_form.store }}</td>
+                        </tr>
+                      </tbody>
+                      </table>
+      
+        </div>
+        
+    </script>
+
+<!-- -------------- salva variaveis ------------ -->
+    <script>
+            $("#cap").click(function(){
+                var bill=$("#id_main-bill_of_land").val();
+                var date=$("#id_main-date").val();
+                var vendor=$("#id_main-vendor").val();
+                // alert(bill + date + vendor)
+                
+                
+                // atualizando div 
+            $( "#div1" ).load( "cadastros/forms1.html", function(){
+            alert( bill + date + vendor +"Load was performed." );
+            });
+            });
+    </script>
+
+<!-- -----------testando o botao nome , testando ----------- -->
+<script>
+    var button = document.querySelector('button');
+    $("#teste1").click(function(){
+        var nome = prompt('Qual é o seu nome?');
+        alert('Olá ' + nome + ', é um prazer te ver!');
+        
+        // atualizando div 
+        $( "#div1" ).load( "cadastros/home.html", function() {
+        alert( bill + date + vendor +"Load was performed." );
+        });
+    });
+</script>
+
+<!-- ------------- pop up material ---------------->
+<script>
+    $(document).ready(function(){
+        $("#reg-mat").click(function(){
+            $("#div1").dialog();
+        })
+        
+    });
+</script>
+<!------------------- iteracao loop tabela forms ------------------->
+{% for x in formset %}
+<script>
+    $(document).ready(function() {
+        $('item-{{ forloop.counter0 }}').keyup(function() {
+         $('#tag5').html('<b>' + $(this).val() + '</b>');
+        });
+    }); 
+</script>
+{% endfor %}
+
+<script>   
+// -------table cadastro bill ---------------
+
+$("#opt").click(function(e){
+    e.preventDefault();
+    var Billoflading = $('#id_main-bill_of_land').val();    
+    var date = $('#id_main-date').val();
+    var vendor = $('#id_main-vendor').val();
+
+    var linha = "" +
+        "<tr>" +
+           "<td>"+Billoflading+"</td>"+
+           "<td>"+date+"</td>"+
+           "<td>"+vendor+"</td>"+
+        "</tr>";
+        $('.tbody-bill').append( linha );
+        // $('#id_main-date').val('');
+        // $('#id_main-vendor').val('');
+});
+
+
+    $(".tbody").on("click", "remove-list", function(e){
+                $(this).closest('tr').remove();
+            });
+    
+    // $( "#div1" ).load( "cadastros/forms1.html", function(){
+    // alert("Load was performed." );
+    // });
+
+
+// ---------------------- p forms ------------------------------
+
+$("#modalcls").click(function(){
+        adicionarItemTable();
+    });
+
+    $("#modalcls").click(function(e){
+        e.preventDefault();
+        alert("success");       
+
+    });
+    
+// ---------- original function---------------
+function adicionarItemTable() {
+
+    var POnumber = $('#id_product-1-PO_number').val();
+    var ordernumber     = $('#id_product-0-Order_number').val();
+    var SideMark = $('#id_product-0-Side_Mark').val();
+    var Carrier = $('#id_product-0-carrier').val();
+    var RollNumber = $('#id_product-0-Roll_number').val();
+    var width = $('#id_product-0-width').val();
+    var length = $('#id_product-0-length').val();
+    var Quantity = $('#id_product-0-Quantity').val();
+    var MaterialType = $('#id_product-0-material_type').val();
+    var store = $('#id_product-0-store').val();
+
+    var linha = "" +
+        "<tr>" +
+           "<td>"+POnumber+"</td>"+
+           "<td>"+ordernumber+"</td>"+
+           "<td>"+SideMark+"</td>"+
+           "<td>"+Carrier+"</td>"+
+           "<td>"+RollNumber+"</td>"+
+           "<td>"+width+"</td>"+
+           "<td>"+length+"</td>"+
+           "<td>"+Quantity+"</td>"+
+           "<td>"+MaterialType+"</td>"+
+           "<td>"+store+"</td>"+
+           "  <td><a href='#' class='btn btn-danger btn-remove btn-xs'>Remove</a></td>"+
+        "</tr>";
+    $('.tbody').append( linha );
+    $('#id_product-0-PO_number').val('');
+    $('#id_product-0-Order_number').val('');
+    $('#id_product-0-Side_Mark').val('');
+    $('#id_product-0-carrier').val('');
+    $('#id_product-0-Roll_number').val('');
+    $('#id_product-0-width').val('');
+    $('#id_product-0-length').val('');
+    $('#id_product-0-Quantity').val('');
+    $('#id_product-0-material_type').val('');
+    $('#id_product-0-store').val('');
+}
+// ------------------final function principal------------------
+
+          $(".tbody").on("click", "remove-list", function(e){
+              $(this).closest('tr').remove();
+          });
+              
+</script>
+
+<script>
+    //  $(document).on('submit', '#modal-footer', 
+    //  function noupdt(e){
+    //     e.preventDefault();
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: 'register/billofland',
+    //         data: {
+    //             her: $('#modal-mat').val(),
+    //             csrfmiddlewaretoken: '{%csrf_token%}',
+    //         },
+    //         success:function(){
+    //             alert("New register")
+    //         }
+    //     });
+    // });
+</script>
+
+<script>
+    $("#opt").click(function(e){
+        e.preventDefault();       
+        alert("success"); 
+    });
+
+
+
+
+    //     jQuery("#modalcls").on("submit", function(){
+    // var content = jQuery(this);
+    // jQuery.ajax({
+    // type:"POST",
+    // url:"billofland", 
+    // data:jQuery(this).serialize(),
+    // success:function(data) {
+    // if(data == 1){
+    // //Sucesso
+    // }else{
+    // //Erro
+    // }
+    // }
+    // });
+    // return false;
+    // });
+    
+</script>
+
+
+<!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#modal-mat').submit(function(){
+        var dados = $( this ).serialize();
+
+        $.ajax({
+            type: "POST",
+            url: "billoffland",
+            data: dados,
+            success: function( data )
+            {
+                alert( data );
+            }
+        });
+
+        return false;
+    });
+});
+</script> -->
+
+<!-- <script>
+    $(document).on('submit', '#teste',function(e){
+        e.defaultPrevented();
+        $.ajax({
+            type:'POST',
+            url:'/create',
+            data:{
+                PO_number:$('#id_product-0-PO_number').val(),
+                Order_number:$('#id_product-0-Order_number').val(),
+                Side_Mark:$('#id_product-0-Side_Mark').val(),
+                carrier:$('#id_product-0-carrier').val(),
+                Roll_number:$('#id_product-0-Roll_number').val(), 
+                width:$('#id_product-0-width').val(), 
+                length:$('#id_product-0-length').val(), 
+                Quantity:$('#id_product-0-Quantity').val(), 
+                // take_out_date:$('#').val(), 
+                // take_out_name:$('#').val(), 
+                material_type:$('#id_product-0-material_type').val(), 
+                store:$('#id_product-0-store').val(), 
+                crsfmiddlewaretoken:$('input[name=crsfmiddlewaretoken]').val(),
+            },
+            success: function(data){
+                // alert(success)
+                $('h4').html(data);
+            }
+        });
+    });
+</script> -->
+
+<script>
+    $(document).on('submit', '#post-form',function(e){
+        e.defaultPrevented();
+        $.ajax({
+            type:'POST',
+            url:'/create',
+            data:{
+                bill_of_land:$('#id_main-bill_of_land').val(),
+                date:$('#id_main-date').val(),
+                vendor:$('#id_main-vendor').val(),
+
+                crsfmiddlewaretoken:$('input[name=crsfmiddlewaretoken]').val(),
+            },
+            success: function(data){
+                alert("work"+success)
+                // $('h4').html(data);
+            }
+        });
+    });
+
+    // $("#ajx").click(function(e){
+    //     e.preventDefault();       
+    //     alert("success"); 
+    // });
+
+    // success: function(data){
+    //             // alert(success)
+    //             $('h4').html(data);
+    //         }
+
+</script>
+
+
+<script>
+//     $(document).ready(function () {
+//     var counter = 1;
+//     // order-list 
+//     $("#order").on("change", '#id_product-0-width, #id_product-0-length', function (event) {
+//         calculateRow($(this).closest("tr"));
+//     });
+// });
+    
+// function calculateRow(row) {
+//     var price = +row.find('#id_product-0-width').val();
+//     var qty = +row.find('#id_product-0-length').val();
+//     row.find('#id_product-0-Quantity').val((price * qty).toFixed(2));
+// }
+</script>
+    {% endblock %}
+
+    <!-- http://jsfiddle.net/QAa35/ -->
