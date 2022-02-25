@@ -1,3 +1,8 @@
+git init
+git status
+git add .
+
+
 Codes: 
 heroku buildpacks:add heroku/python
 heroku git:remote -a wa-system
