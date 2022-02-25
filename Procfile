@@ -1,0 +1,1 @@
+web: gunicorn Progressao.wsgi --log-file -

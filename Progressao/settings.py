@@ -1,6 +1,7 @@
 
 import os
 from pathlib import Path
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -15,7 +16,7 @@ SECRET_KEY = 'django-insecure-7x*xvyp7&vqflvkm8ayk+ijjz=$kj%og0=)lyr-03kr92(%bx6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 # '10.1.10.96','10.1.10.41', '10.1.10.85','10.1.10.2'
-ALLOWED_HOSTS = ['10.1.10.96','10.1.10.41', '10.1.10.85','10.1.10.2', 'localhost']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -121,10 +122,13 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
+django_heroku.settings(locals())
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR/'media'
+
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # posso apagar
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'static') 

@@ -101,6 +101,7 @@ class Material_type(models.Model):
     take_out_name = models.CharField(max_length=50, verbose_name="Take Out Name", null=True, blank=True)
     material_type = models.CharField(max_length=50, choices=os_choice, verbose_name="Material Type", null=True, blank=True)
     store = models.CharField(max_length=50, choices=os_choice1, verbose_name="Corporation/Store", null=True, blank=True)
+    desc = models.CharField(max_length=50, verbose_name="Description", null=True, blank=True)
     barcode = models.ImageField(upload_to='images/', blank=True)
     
     def __str__(self):
@@ -116,7 +117,8 @@ class Material_type(models.Model):
         ean.write(buffer)
         # self.barcode.save(f'{self.barcode}.png', File(buffer), save=False)
         self.barcode.save(f'barcode.png', File(buffer), save=False)
-        return super().save(*args, **kwargs)    
+        return super().save(*args, **kwargs)
+  
 
 
 class Shelf(models.Model):
@@ -130,4 +132,8 @@ class OrderNumberShelf(models.Model):
     def __str__(self):
         return  ("{} ".format(self.roll_number_shelf))
     
-    
+
+class anexo(models.Model):
+    anexo = models.ImageField(upload_to='anexo/', blank=True, null=True)
+    def __str__(self):
+        return  ("{} ".format(self.anexo))

@@ -221,18 +221,14 @@ document.body.innerHTML = originalContents;
         
             $("#order").on("change", '#id_product-'+counter+'-width, #id_product-'+counter+'-length', function (event) {
                 calculateRow($(this).closest("tr"));
-            });
-            
-            
+            });          
             
                 function calculateRow(row){
                     var price = +row.find('#id_product-'+counter+'-width').val();
                     var qty = +row.find('#id_product-'+counter+'-length').val();
-                    row.find('#id_product-'+counter+'-Quantity').val((price * qty).toFixed(2));
+                    row.find('#id_product-'+counter+'-Quantity').val((price * qty)/9).toFixed(2);
                     }
             });
-
-        
         });
 
 
@@ -269,9 +265,9 @@ document.body.innerHTML = originalContents;
                           <tr>
                             <th>Width</th>
                             <th>Length</th>
-                            <th>Quantity</th>
+                            <th>Quantity [Sq.Ft]</th>
                             <th>Material Type</th>
-                            <th>Store</th>                     
+                            <th>Store</th>               
                           </tr>
                       </thead>
                       <tbody>
@@ -281,6 +277,14 @@ document.body.innerHTML = originalContents;
                         <td>{{ formset.empty_form.Quantity }}</td>
                         <td>{{ formset.empty_form.material_type }}</td>
                         <td>{{ formset.empty_form.store }}</td>
+                      </tbody>
+
+                      <thead>
+                        <th>Description</th>      
+                      </thead>
+                      <tbody>
+                        <tr>
+                        <td>{{ formset.empty_form.desc }}</td>
                         </tr>
                       </tbody>
                       </table>
