@@ -18,7 +18,7 @@ from .models import Billofland, Material_type
 from .models import *
 
 from django.forms.models import inlineformset_factory
-from cadastros.forms import  Material_typeForms #BilloflandForms,
+from cadastros.forms import  Material_typeForms 
 from cadastros.models import Billofland, Material_type
 from cadastros.forms import BilloflandForms
 
