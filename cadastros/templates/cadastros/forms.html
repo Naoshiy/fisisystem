@@ -19,6 +19,7 @@
  <!-- inicio formset -->            
           
             <form action="" method="POST" enctype="multipart/form-data">
+                {%csrf_token%}
             <div id="div1" style="color: rgb(2, 10, 12);">
                 
                 {{ form|crispy }}
