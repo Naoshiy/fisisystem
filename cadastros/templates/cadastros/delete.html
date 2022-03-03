@@ -18,6 +18,7 @@
                     <div class="text-container">
                         <div class="above-heading">Delete</div>        
                         <form action="" method="post">
+                            {% csrf_token %}
                             <p>Are you sure you want to permanently delete: {{ object }}</p>
                             <button type="submit" class="btn btn-danger"> Delete </button>
                         </form>                             

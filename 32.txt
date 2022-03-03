@@ -32,3 +32,19 @@ try it on your own (optional)
 heroku run python manage.py collectstatic
 
 future deploys should work as normal from now on
+
+
+---------------------------------------------------------------------------
+
+…or create a new repository on the command line
+echo "# fisisystem" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/Naoshiy/fisisystem.git
+git push -u origin main
+…or push an existing repository from the command line
+git remote add origin https://github.com/Naoshiy/fisisystem.git
+git branch -M main
+git push -u origin main

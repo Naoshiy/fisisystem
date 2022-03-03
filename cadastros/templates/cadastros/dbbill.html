@@ -16,21 +16,24 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="text-container">
-                        <div class="above-heading">Material Information</div>        
+                        <div class="above-heading">Material Information</div>   
+                        {% csrf_token %}     
  
                         <table class="table tablefa-border">
                             <tr>
                                 <th>Bill Of Lading</th>
                                 <th>Date</th>
                                 <th>Vendor</th> 
+                                <th>Anexo</th>
                             </tr>
                             {% for Billofland in object_list %}
                             <tr>
-                                <td>{{ Billofland.bill_of_land }}</td>
+                                <td><a href="media/anexo/{{ Billofland.bill_of_land }}.pdf">{{ Billofland.bill_of_land }}</a></td>
                                 <td>{{ Billofland.date }}</td>
-                                <td>{{ Billofland.vendor }}</td>                                         
+                                <td>{{ Billofland.vendor }}</td>                 
+                                <td>{{ Billofland.anexo }} </td>                        
                             <td>
-                                <a href="{% url 'billdelete' Billofland.pk %}" class="btn btn-danger">Delete</a>
+                                <a href="{% url 'billdelete' Billofland.pk %} "  class="btn btn-danger">Delete</a>
                                 <a href="{% url 'billupdate' Billofland.pk %}" class="btn btn-sm">Edit</a>
                             </td>                                                                                        
                             {% empty %}

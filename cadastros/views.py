@@ -1,11 +1,12 @@
 
 from ast import parse
+from dataclasses import field
 from datetime import date, timedelta
 from multiprocessing import active_children, context
 from pdb import post_mortem
 from unicodedata import category
 from django.views.generic.list import ListView
-from django.views.generic.edit import UpdateView
+from django.views.generic.edit import UpdateView, DeleteView
 from .models import Billofland
 from django.urls import reverse_lazy 
 
@@ -41,30 +42,32 @@ class Material_typeList(ListView):
 
 
 ### UPDATE ###
-# class MateriatypelUpdate(UpdateView):
-#     model = Material_type
-#     fields = ['bill_of_land', 'PO_number', 'Order_number', 'Side_Mark', 'Roll_number', 'Quantity', 'width', 'length', 'take_out_date', 'take_out_name', 'material_type', 'store', 'carrier']
-#     template_name = 'cadastros/forms.html'
-#     success_url = reverse_lazy('dbmaterial')
+class MateriatypelUpdate(UpdateView):
+    model = Material_type
+    # fields = ['bill_of_land', 'PO_number', 'Order_number', 'Side_Mark', 'Roll_number', 'Quantity', 'width', 'length', 'take_out_date', 'take_out_name', 'material_type', 'store', 'carrier']
+    fields = "__all__"
+    template_name = 'cadastros/forms.html'
+    success_url = reverse_lazy('dbmaterial')
 
-# class BilloflandUpdate(UpdateView):
-#     model = Billofland
-#     template_name = 'cadastros/forms.html'
-#     success_url = reverse_lazy('dbmaterial')
+class BilloflandUpdate(UpdateView):
+    model = Billofland
+    fields = "__all__"
+    template_name = 'cadastros/forms.html'
+    success_url = reverse_lazy('dbbill')
 
 # update take out
 
 
 ### DELETE ###
-# class Material_typeDelete(DeleteView):
-#     model = Material_type
-#     template_name = 'cadastros/delete.html'
-#     success_url = reverse_lazy('dbmaterial')
+class Material_typeDelete(DeleteView):
+    model = Material_type
+    template_name = 'cadastros/delete.html'
+    success_url = reverse_lazy('dbmaterial')
 
-# class BilloflandDelete(DeleteView):
-#     model = Billofland
-#     template_name = 'cadastros/delete.html'
-#     success_url = reverse_lazy('dbmaterial')
+class BilloflandDelete(DeleteView):
+    model = Billofland
+    template_name = 'cadastros/delete.html'
+    success_url = reverse_lazy('dbbill')
 
 
 def inner(request):
@@ -110,12 +113,16 @@ def article_list(request):
     start_date = request.GET.get('start_date')
     end_date = request.GET.get('end_date')
     carrier = request.GET.get('carrier')
+    Roll_number = request.GET.get('Roll_number')
     if start_date and end_date:
         object_list = object_list.filter(bill_of_land__date__range=[start_date, end_date])
+    elif Roll_number:
+        object_list = object_list.filter(Roll_number=Roll_number)
     elif carrier:
         object_list = object_list.filter(carrier=carrier)
     else:
-        object_list = Material_type.objects.all().select_related('bill_of_land')
+        # object_list = Material_type.objects.all().select_related('bill_of_land')
+        object_list =[]
 
     context = {
         'object_list': object_list,
@@ -132,7 +139,7 @@ def create_material(request, pk):
     MaterialFormset = inlineformset_factory(
         Billofland, Material_type, 
         form = Material_typeForms,
-        extra=1, 
+        extra=0, 
         can_delete=False, 
         validate_min=True)
     
@@ -167,7 +174,7 @@ def her(request):
     MaterialFormset = inlineformset_factory(
         Billofland, Material_type, 
         form = Material_typeForms, 
-        extra=1, 
+        extra=0, 
         can_delete=False, 
         validate_min=True)
 
@@ -198,7 +205,7 @@ def her(request):
     return render(request, 'cadastros/forms1.html', context)
     
     
-from .forms import Material_typeForms, MaterialShelfForms, ShelfForm
+from .forms import AnexoForms, Material_typeForms, MaterialShelfForms, ShelfForm
 
 
 def create_material_form(request):
@@ -227,7 +234,7 @@ def ShelfCreate(request):
     ShelfFormset = inlineformset_factory(
         Shelf, OrderNumberShelf, 
         form = MaterialShelfForms, 
-        extra=1, 
+        extra=0, 
         can_delete=False, 
         validate_min=True)
 
@@ -281,7 +288,6 @@ def shelf_list(request):
     return render(request, template_name, context)
 
 
-
 ### UPDATE ###
 class ShelfUpdate(UpdateView):
     model = OrderNumberShelf
@@ -289,7 +295,13 @@ class ShelfUpdate(UpdateView):
     template_name = 'cadastros/location.html'
     success_url = reverse_lazy('loc')
     
-    
+# anexo
+def create_anexo_form(request):
+    form_anexo = AnexoForms() 
+    context = {
+        "form_anexo": form_anexo
+    }
+    return render(request, "cadastros/db.html", context)
     
 
     

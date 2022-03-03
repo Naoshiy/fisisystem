@@ -1,5 +1,5 @@
 from django import forms
-from .models import Billofland, Material_type, Shelf, OrderNumberShelf
+from .models import Billofland, Material_type, Shelf, OrderNumberShelf, anexo
 
 from cadastros.models import Billofland , Material_type
 
@@ -24,8 +24,8 @@ MaterialFormSet = inlineformset_factory(
     Billofland,
     Material_type,
     form=Material_typeForms,
-    min_num=2,  # minimum number of forms that must be filled in
-    extra=1,  # number of empty forms to display
+    min_num=1,  # minimum number of forms that must be filled in
+    extra=0,  # number of empty forms to display
     can_delete=True  # show a checkbox in each form to delete the row
 )
 
@@ -37,4 +37,9 @@ class ShelfForm(forms.ModelForm):
 class MaterialShelfForms(forms.ModelForm):
     class Meta:
         model = OrderNumberShelf
+        fields="__all__"
+
+class AnexoForms(forms.ModelForm):
+    class Meta:
+        model = anexo
         fields="__all__"

@@ -23,12 +23,15 @@
                     {% endfor %}
                     </select> -->
 
-                        <form class="form-inline">       
-                            <label>Start Date</label>
-                            <input class="form-control" name="start_date" type="date"/>
-                            <label>End Date</label>
-                            <input class="form-control" name="end_date" type="date"/>
+                        <form >       
 
+                            <label><b>Start Date</b></label>
+                            <input class="form-control" name="start_date" type="date"/>
+                            <label><b>End Date</b></label>
+                            <input class="form-control" name="end_date" type="date"/>
+<br>
+                            <label><b>Carrier</b></label>
+<br>
                             <select class="form-select" for="carrier" name="carrier" >
                                 <option>SELECT...</option>
 
@@ -66,8 +69,12 @@
 
                             </select> 
 
+<br><br>
+                            <label><b>Roll Number</b></label>
+                            <input class="form-control" name="Roll_number" type="text"/>
 
                             <button class="btn btn-primary" type="submit"> Search </button>
+
                         </form>
             </div>
                         <button type="button" class="btn btn-success" onclick="printDiv('renderPDF')" id="pdf">generate pdf</button>
@@ -75,7 +82,7 @@
        <!-- <link rel="stylesheet" href=""> -->
        
        <div class="renderPDF" id="renderPDF">
- <!-- border="1px"  -->
+
                         <table class="table"   id="tags"> 
                                 {% for x in object_list %}
                                 
@@ -145,9 +152,7 @@
                                         }          
                                    </style>
         </div>    
-
-       
-                        
+                       
         </div> <!-- end of container -->
     </div> <!-- end of form -->
     <!-- body central -->
@@ -155,7 +160,7 @@
     {% endblock %}
 
     {% block scripts %}
-        <script>
+    <script>
             $(document).ready(function(){
                 $("#tags").dataTable();
             });
@@ -171,9 +176,6 @@ function printDiv(renderPDF) {
 
      document.body.innerHTML = originalContents;
 }
-
-
-
-        </script>
+    </script>
 
    {% endblock %}

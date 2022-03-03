@@ -8,14 +8,13 @@ from barcode.writer import ImageWriter
 from io import BytesIO
 from  django.core.files import File
 
-# Create your models here.
-
 class Billofland(models.Model):
     bill_of_land = models.CharField(max_length=50, verbose_name="Bill Of Land", null=True, blank=True)
     date = models.DateField( null=True, blank=True)
     vendor = models.CharField(max_length=50, verbose_name="Vendor", null=True, blank=True)
+    anexo = models.FileField(upload_to='anexo/', verbose_name="Attach files", blank=True, null=True)
     def __str__(self):
-        return  ("{} {} {}".format(self.bill_of_land,self.date,self.vendor))
+        return  ("{} {} {} {}".format(self.bill_of_land,self.date,self.vendor, self.anexo))
 
 class Material_type(models.Model):
     os_choice=(

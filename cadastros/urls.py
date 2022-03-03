@@ -2,7 +2,7 @@ from unicodedata import name
 from django.urls import path
 
 from .views import   ShelfCreate, ShelfUpdate, article_list, create_material_form, detail_material, her, shelf_list 
-# from .views import  BilloflandDelete, Material_typeDelete, MateriatypelUpdate, BilloflandUpdate
+from .views import MateriatypelUpdate, Material_typeDelete, BilloflandUpdate, BilloflandDelete
 from .views import BilloflandList,Material_typeList
 
 from . import views
@@ -23,11 +23,11 @@ urlpatterns = [
     path('', views.index , name=""),
     path('create', views.create, name="create"),
  
-    # path('delete/material/<int:pk>', Material_typeDelete.as_view(), name='materialdelete'),
-    # path('billdelete/<int:pk>', BilloflandDelete.as_view(), name='billdelete'),
+    path('delete/material/<int:pk>', Material_typeDelete.as_view(), name='materialdelete'),
+    path('billdelete/<int:pk>', BilloflandDelete.as_view(), name='billdelete'),
 
-    # path('materialupdate/<int:pk>/', MateriatypelUpdate.as_view(), name='materialupdate'),
-    # path('billupdate/<int:pk>/', BilloflandUpdate.as_view(), name='billupdate'),
+    path('materialupdate/<int:pk>/', MateriatypelUpdate.as_view(), name='materialupdate'),
+    path('billupdate/<int:pk>/', BilloflandUpdate.as_view(), name='billupdate'),
 
     path('ff/<pk>/', create_material, name='createmat'),
     path('create-form/', create_material_form, name='create-form'), 
