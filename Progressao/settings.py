@@ -128,7 +128,7 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR/'media'
 
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # posso apagar
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # posso apagar
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'static') 

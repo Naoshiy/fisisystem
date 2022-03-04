@@ -31,14 +31,16 @@
                             <tr>
                                 <th> Shelf </th>
                                 <th>Roll Number</th>
+                                <th>Side Mark</th>
                             </tr>
                             </thead>
                         <tbody>
                             {% for x in shelf_list %}
-
+                            
                             <tr>
                                 <td>{{ x.shelf}}</td>
-                                <td>{{ x.roll_number_shelf }}</td>                        
+                                <td>{{ x.roll_number_shelf }}</td> 
+                                <td>{{ x.sm.Side_Mark }}</td>                       
                             </tr>                                                                                        
                             {% empty %}
                             <tr>

@@ -138,27 +138,12 @@ document.body.innerHTML = originalContents;
       </div>
     </div>
   </div>
-        <!-- --------------------------------------------------------------- -->
+  
 
       
 
     </form>
 
-<!-- ------------- table materiaç -tabela materiais----------------- -->
-<!-- <table class="order-list">
-    <thead>
-        <tr><td>Price</td><td>Qty</td><td>Total</td></tr>
-    </thead>
-    
-    <tbody>
-        <tr>
-            <td>$<input type="text" id="price" /></td>
-            <td><input type="text" id="qty" /></td>
-            <td>$<input type="text" id="linetotal" readonly="readonly" /></td>
-        </tr>
-    </tbody>
-
-</table> -->
                 </div> <!-- end of col -->
             </div> <!-- end of row -->
             <div class="row"><!-- end of col -->
@@ -433,23 +418,6 @@ function adicionarItemTable() {
               
 </script>
 
-<script>
-    //  $(document).on('submit', '#modal-footer', 
-    //  function noupdt(e){
-    //     e.preventDefault();
-    //     $.ajax({
-    //         type: 'POST',
-    //         url: 'register/billofland',
-    //         data: {
-    //             her: $('#modal-mat').val(),
-    //             csrfmiddlewaretoken: '{%csrf_token%}',
-    //         },
-    //         success:function(){
-    //             alert("New register")
-    //         }
-    //     });
-    // });
-</script>
 
 <script>
     $("#opt").click(function(e){
@@ -457,78 +425,10 @@ function adicionarItemTable() {
         alert("success"); 
     });
 
-
-
-
-    //     jQuery("#modalcls").on("submit", function(){
-    // var content = jQuery(this);
-    // jQuery.ajax({
-    // type:"POST",
-    // url:"billofland", 
-    // data:jQuery(this).serialize(),
-    // success:function(data) {
-    // if(data == 1){
-    // //Sucesso
-    // }else{
-    // //Erro
-    // }
-    // }
-    // });
-    // return false;
-    // });
     
 </script>
 
 
-<!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-    $('#modal-mat').submit(function(){
-        var dados = $( this ).serialize();
-
-        $.ajax({
-            type: "POST",
-            url: "billoffland",
-            data: dados,
-            success: function( data )
-            {
-                alert( data );
-            }
-        });
-
-        return false;
-    });
-});
-</script> -->
-
-<!-- <script>
-    $(document).on('submit', '#teste',function(e){
-        e.defaultPrevented();
-        $.ajax({
-            type:'POST',
-            url:'/create',
-            data:{
-                PO_number:$('#id_product-0-PO_number').val(),
-                Order_number:$('#id_product-0-Order_number').val(),
-                Side_Mark:$('#id_product-0-Side_Mark').val(),
-                carrier:$('#id_product-0-carrier').val(),
-                Roll_number:$('#id_product-0-Roll_number').val(), 
-                width:$('#id_product-0-width').val(), 
-                length:$('#id_product-0-length').val(), 
-                Quantity:$('#id_product-0-Quantity').val(), 
-                // take_out_date:$('#').val(), 
-                // take_out_name:$('#').val(), 
-                material_type:$('#id_product-0-material_type').val(), 
-                store:$('#id_product-0-store').val(), 
-                crsfmiddlewaretoken:$('input[name=crsfmiddlewaretoken]').val(),
-            },
-            success: function(data){
-                // alert(success)
-                $('h4').html(data);
-            }
-        });
-    });
-</script> -->
 
 <script>
     $(document).on('submit', '#post-form',function(e){
@@ -550,34 +450,9 @@ $(document).ready(function(){
         });
     });
 
-    // $("#ajx").click(function(e){
-    //     e.preventDefault();       
-    //     alert("success"); 
-    // });
-
-    // success: function(data){
-    //             // alert(success)
-    //             $('h4').html(data);
-    //         }
-
 </script>
 
 
-<script>
-//     $(document).ready(function () {
-//     var counter = 1;
-//     // order-list 
-//     $("#order").on("change", '#id_product-0-width, #id_product-0-length', function (event) {
-//         calculateRow($(this).closest("tr"));
-//     });
-// });
-    
-// function calculateRow(row) {
-//     var price = +row.find('#id_product-0-width').val();
-//     var qty = +row.find('#id_product-0-length').val();
-//     row.find('#id_product-0-Quantity').val((price * qty).toFixed(2));
-// }
-</script>
     {% endblock %}
 
     <!-- http://jsfiddle.net/QAa35/ -->

@@ -269,8 +269,7 @@ def ShelfCreate(request):
 def shelf_list(request):
     
     template_name = 'cadastros/location_list.html'
-    shelf_list = OrderNumberShelf.objects.all().select_related('shelf')
-      
+    shelf_list = OrderNumberShelf.objects.all().select_related('shelf').select_related('sm')
     # start_date = request.GET.get('start_date')
     # end_date = request.GET.get('end_date')
     Roll_number = request.GET.get('Roll_number')

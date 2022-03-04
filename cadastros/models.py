@@ -43,6 +43,7 @@ class Material_type(models.Model):
         ('wood','wood'),       
     )
     os_choice1=(
+        ('Carpet Yard', 'Carpet Yard'),
         ('EB-Carpets & More East Brunswick', 'EB-Carpets & More East Brunswick'),
         ('Warehouse', 'Warehouse'),
         ('SI-Carpets & More Staten Island', 'SI-Carpets & More Staten Island'),
@@ -128,6 +129,7 @@ class Shelf(models.Model):
 class OrderNumberShelf(models.Model):
     roll_number_shelf = models.CharField(max_length=50, verbose_name="Roll Number", null=True, blank=True)
     shelf = models.ForeignKey(Shelf, on_delete=models.CASCADE,  null=True, blank=True)
+    sm = models.ForeignKey(Material_type, on_delete=models.CASCADE,  null=True, blank=True)
     def __str__(self):
         return  ("{} ".format(self.roll_number_shelf))
     
